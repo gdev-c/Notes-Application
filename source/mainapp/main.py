@@ -1,6 +1,7 @@
 import PySimpleGUI as sg
 
 sg.theme('Blue Purple')
+test_msg = None
 
 
 def set_window_theme(themeName):
