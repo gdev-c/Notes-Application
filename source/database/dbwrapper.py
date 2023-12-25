@@ -1,6 +1,15 @@
 import sqlite3
 
 class DB:
+    """
+    This is a DB wrapper class for the sqlite3 database.
+    Always use this class to read, write and update operations on the DB
+
+    Attributes:
+    - db_name: Name of the SQL Database
+    - connection: Connection Object to the Database
+    """
+
     def __init__(self, db_name="Notes.db"):
         self.db_name = db_name
         self.connection = None
