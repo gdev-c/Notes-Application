@@ -11,10 +11,22 @@ class DB:
     """
 
     def __init__(self, db_name="Notes.db"):
+        """
+        Constructor for the DB class. Initialized with one default argument
+        """
         self.db_name = db_name
         self.connection = None
 
     def open_connection(self):
+        """
+        Opens a connection to the Database
+        
+        Parameters:
+        
+        Returns:
+        True - If connection is opened succesfully
+        False - If connection was not opened to the DB
+        """
         try:
             self.connection = sqlite3.connect(self.db_name)
         except sqlite3.Error:
@@ -24,6 +36,17 @@ class DB:
         return True
     
     def execute_query(self, db_query=""):
+        """
+        Executest the given query on the DB.
+
+        Parameters:
+        - db_query: qyery that needs to be executed
+
+        Returns:
+        False: If query is empty (or)
+               If invalid query
+        True: If query has executed succesfully
+        """
         if not db_query: return False
         ret_val = True
         try:
@@ -32,8 +55,6 @@ class DB:
                 cur.execute(db_query)
                 self.connection.commit()
                 cur.close()
-            else:
-                print('Could Not get the cursor to the DB.\n')
         except sqlite3.Error:
             print('Sqlite3 Error when connecting to DB.', sqlite3.Error)
             ret_val =  False
@@ -45,31 +66,6 @@ class DB:
 
         self.connection.close()
         return True
-
-    def create_user_details_table(self):
-        table_created = True
-        try:
-            connection = sqlite3.connect("")
-            cursor = connection.cursor()
-            cursor.execute("""CREATE TABLE IF NOT EXISTS user_details
-                            (user_id int PRIMARY KEY,
-                            first_name varchar(255),
-                            last_name varchar(255),
-                            password_hash varchar(100),
-                            password_salt varchar(20)
-                            );
-                            """)
-            connection.commit()
-        except sqlite3.Error:
-            print('Sqlite error.\n')
-            table_created = False
-        finally:
-            if cursor:
-                cursor.close()
-            if connection:
-                connection.close()
-    
-        return table_created
     
     def create_note_table(self):
         table_created = True
