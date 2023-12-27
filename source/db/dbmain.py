@@ -114,11 +114,13 @@ def get_password_for_user(user_name):
         cur.execute(get_user_password_query, (user_name,))
         rows = cur.fetchall()
     except sqlite3.Error as e:
-        print('Error inserting to table.', e)
+        print('Error getting user deatils from table.', e)
     finally:
         if cur:
             cur.close()
         if connection:
             connection.close()
+
+    if not rows: return ("", "")
 
     return (rows[0][0], rows[0][1])
