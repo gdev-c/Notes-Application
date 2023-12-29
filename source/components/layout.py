@@ -1,5 +1,8 @@
 import PySimpleGUI as sg
 
+#------------------------------------------------------------------------------------------
+#   Functions
+#------------------------------------------------------------------------------------------
 def main_layout():
     """
     Returns the layout of the sign-in and sign-up page
@@ -19,6 +22,7 @@ def main_layout():
     
     home_page_layout = [
     [
+        sg.Multiline(size=(40, 40), key='-NOTE_AREA-'),
         sg.Column([
             [sg.Table(values=[], headings=['Notes'], auto_size_columns=True, justification='right', key='-FILETABLE-', right_click_menu=['&Right', ['&Delete']], num_rows=10)],
             [sg.Button('Refresh')],

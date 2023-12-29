@@ -4,6 +4,9 @@ from components import layout as lay, encrypt as en, features
 from db import dbmain
 
 
+#------------------------------------------------------------------------------------------
+#   Functions
+#------------------------------------------------------------------------------------------
 def event_loop(window):
     """
     This is the event loop for the windows in the notes app
@@ -92,7 +95,7 @@ def main():
     window.close(); del window
 
 
-
+#This is the entry point of the application
 if __name__ == '__main__':
     main()
     #os.remove('Notes.db')

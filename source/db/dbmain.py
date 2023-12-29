@@ -23,7 +23,8 @@ create_user_details_query = """CREATE TABLE IF NOT EXISTS user_details
                             """
 create_notes_metadata_table_query = """CREATE TABLE IF NOT EXISTS notes_metadata
                            (note_id INTEGER PRIMARY KEY AUTOINCREMENT,
-                           file_path varchar(255)
+                           user_id INTEGER,
+                           FOREIGN KEY(user_id) REFERENCES user_details(user_id) 
                            );
                            """
 
