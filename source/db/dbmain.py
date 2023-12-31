@@ -21,12 +21,6 @@ create_user_details_query = """CREATE TABLE IF NOT EXISTS user_details
                             password_salt varchar(20)
                             );
                             """
-create_notes_metadata_table_query = """CREATE TABLE IF NOT EXISTS notes_metadata
-                           (note_id INTEGER PRIMARY KEY AUTOINCREMENT,
-                           user_id INTEGER,
-                           FOREIGN KEY(user_id) REFERENCES user_details(user_id) 
-                           );
-                           """
 
 insert_into_user_details_table_query = """INSERT INTO user_details
                                     (name, password_hash, password_salt) 
@@ -51,7 +45,6 @@ def initialize_database():
         connection = sqlite3.connect('Notes.db')
         cur = connection.cursor()
         cur.execute(create_user_details_query)
-        cur.execute(create_notes_metadata_table_query)
         connection.commit()
     except sqlite3.Error as e:
         print('Error creating table.', e)

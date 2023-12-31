@@ -1,4 +1,5 @@
 from db import dbmain
+import os
 
 #------------------------------------------------------------------------------------------
 #   Global variables
@@ -25,7 +26,6 @@ def is_existing_user(user_name):
 
     ret_val = False
     for row in rows:
-        print(row[0], user_name)
         if row[0] == user_name:
             ret_val = True
             break
@@ -43,6 +43,8 @@ def set_to_defaults(window):
     for components in components_values:
         if components == '-SIGNUP_CHECKBOX-':
             window[components].update(False)
+        elif components == '-FILETABLE-':
+            window[components].update([])
         else:
             window[components].update('')
 
@@ -63,5 +65,30 @@ def enable_layout(window, layout_str):
 
     return window
 
-def get_current_user_notes(user_name):
-    pass
+def create_directory_for_user(file_path):
+
+    if not os.path.exists(file_path):
+        os.makedirs(file_path)
+        return True
+    return False
+
+def initialize_home_page(user_name):
+    #Create directory for user if doesn't already exist
+    file_path = os.path.join(os.getcwd(), 'files', user_name)
+    if create_directory_for_user(file_path):
+        return []
+    
+    return os.listdir(file_path)
+
+def get_file_content(file_name, user_name):
+    file_path = os.path.join(os.getcwd(), 'files', user_name, file_name)
+    whole_content = ""
+    with open(file_path, 'r') as file:
+        whole_content += file.read()
+
+    return whole_content
+
+def write_content_to_file(content, user_name, file_name):
+    file_path = os.path.join(os.getcwd(), 'files', user_name, file_name)
+    with open(file_path, 'w') as file:
+        file.write(content)
