@@ -1,1 +1,1 @@
-This is a windowas application coded in python
+This is a windows application coded in python
